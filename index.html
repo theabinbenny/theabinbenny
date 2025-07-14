@@ -4,88 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Simple Chatbot</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    #chat-container {
-      background: white;
-      width: 350px;
-      max-width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      height: 500px;
-    }
-    #chat-window {
-      flex: 1;
-      padding: 10px;
-      overflow-y: auto;
-      border-bottom: 1px solid #ddd;
-    }
-    .message {
-      margin: 8px 0;
-      max-width: 80%;
-      padding: 8px 12px;
-      border-radius: 15px;
-      clear: both;
-    }
-    .user {
-      background: #007bff;
-      color: white;
-      float: right;
-      border-bottom-right-radius: 0;
-    }
-    .bot {
-      background: #e5e5ea;
-      color: black;
-      float: left;
-      border-bottom-left-radius: 0;
-    }
-    #input-area {
-      display: flex;
-      padding: 10px;
-    }
-    #user-input {
-      flex: 1;
-      padding: 8px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      outline: none;
-    }
-    #send-btn {
-      background: #007bff;
-      color: white;
-      border: none;
-      padding: 0 16px;
-      margin-left: 8px;
-      font-size: 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    #send-btn:hover {
-      background: #0056b3;
-    }
-  </style>
 </head>
 <body>
-  <div id="chat-container">
-    <div id="chat-window"></div>
-    <form id="input-area" onsubmit="return sendMessage();">
-      <input type="text" id="user-input" autocomplete="off" placeholder="Type your message..." />
-      <button type="submit" id="send-btn">Send</button>
-    </form>
-  </div>
+  <h1>Simple Chatbot</h1>
+  <div id="chat-window" style="height: 300px; overflow-y: auto; border: 1px solid #000; padding: 5px; margin-bottom: 10px;"></div>
+  <form id="input-area" onsubmit="return sendMessage();">
+    <input type="text" id="user-input" autocomplete="off" placeholder="Type your message..." style="width: 80%;" />
+    <button type="submit">Send</button>
+  </form>
 
   <script>
     const chatWindow = document.getElementById('chat-window');
@@ -93,8 +19,7 @@
 
     function appendMessage(text, sender) {
       const msgDiv = document.createElement('div');
-      msgDiv.classList.add('message', sender);
-      msgDiv.textContent = text;
+      msgDiv.textContent = (sender === 'user' ? 'You: ' : 'Bot: ') + text;
       chatWindow.appendChild(msgDiv);
       chatWindow.scrollTop = chatWindow.scrollHeight;
     }
@@ -140,7 +65,6 @@
       return false; // prevent form submission
     }
 
-    // Greet user on load
     window.onload = () => {
       appendMessage("Hi! I'm SimpleBot. Try saying 'hello' or ask me for the time.", 'bot');
       userInput.focus();
